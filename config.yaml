@@ -1,0 +1,95 @@
+monitor:
+  poll_interval: 30
+  mode: "local"
+
+servers:
+  - name: "web-server-1"
+    host: "10.0.1.10"
+    port: 5000
+  - name: "web-server-2"
+    host: "10.0.1.11"
+    port: 5000
+  - name: "api-server-1"
+    host: "10.0.2.10"
+    port: 5000
+  - name: "db-server-1"
+    host: "10.0.3.10"
+    port: 5000
+  - name: "gpu-worker-1"
+    host: "10.0.4.10"
+    port: 5000
+  - name: "gpu-worker-2"
+    host: "10.0.4.11"
+    port: 5000
+  - name: "cache-server-1"
+    host: "10.0.5.10"
+    port: 5000
+  - name: "queue-server-1"
+    host: "10.0.6.10"
+    port: 5000
+  - name: "monitoring-server"
+    host: "10.0.7.10"
+    port: 5000
+  - name: "staging-server"
+    host: "10.0.8.10"
+    port: 5000
+
+alerts:
+  cooldown_seconds: 300
+  rules:
+    - metric: "cpu_percent"
+      operator: ">"
+      threshold: 80.0
+      severity: "warning"
+    - metric: "cpu_percent"
+      operator: ">"
+      threshold: 95.0
+      severity: "critical"
+    - metric: "memory_percent"
+      operator: ">"
+      threshold: 80.0
+      severity: "warning"
+    - metric: "memory_percent"
+      operator: ">"
+      threshold: 95.0
+      severity: "critical"
+    - metric: "disk_percent"
+      operator: ">"
+      threshold: 85.0
+      severity: "warning"
+    - metric: "disk_percent"
+      operator: ">"
+      threshold: 95.0
+      severity: "critical"
+    - metric: "gpu.0.load_percent"
+      operator: ">"
+      threshold: 80.0
+      severity: "warning"
+
+email:
+  smtp_host: "smtp.gmail.com"
+  smtp_port: 587
+  use_tls: true
+  username: "${SMTP_USERNAME}"
+  password: "${SMTP_PASSWORD}"
+  sender: "${ALERT_SENDER_EMAIL}"
+  recipients:
+    - "${ALERT_RECIPIENT_EMAIL}"
+
+influxdb:
+  url: "http://influxdb:8086"
+  token: "${INFLUXDB_TOKEN}"
+  org: "cloud-monitor"
+  bucket: "metrics"
+
+api:
+  host: "0.0.0.0"
+  port: 5000
+
+logging:
+  level: "INFO"
+  format: "json"
+
+circuit_breaker:
+  failure_threshold: 3
+  cooldown_seconds: 60
