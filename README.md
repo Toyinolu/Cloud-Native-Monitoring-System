@@ -1,4 +1,4 @@
-# Cloud Monitor
+# Cloud Native Monitoring System
 
 Monitoring service that tracks CPU, GPU, memory, disk, and network metrics across multiple servers. Sends email alerts when resources cross configurable thresholds (default 80%). Metrics are stored in InfluxDB and visualized through Grafana.
 
